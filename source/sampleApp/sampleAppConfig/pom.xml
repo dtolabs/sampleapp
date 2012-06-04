@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.dtolabs.sample</groupId>
+    <artifactId>sample</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <name>DTO Sample :: WebApp Config Package</name>
+  <artifactId>sampleAppConfig</artifactId>
+  <packaging>rpm</packaging>
+  <dependencies />
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rpm-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <copyright>2012 DTO Labs</copyright>
+          <distribution>DTO Labs</distribution>
+          <group>Application/Sample</group>
+          <name>sampleAppConfig${project.version}</name>
+          <mappings>
+            <mapping>
+              <directory>/opt/sampleAppConfig/${project.version}</directory>
+              <filemode>755</filemode>
+              <sources>
+                <source>
+                  <location>${pom.basedir}/src/main/config</location>
+                </source>
+              </sources>
+            </mapping>
+          </mappings>
+          <preinstallScriptlet>
+            <scriptFile>src/main/scripts/preinstall</scriptFile>
+            <fileEncoding>utf-8</fileEncoding>
+          </preinstallScriptlet>
+          <postinstallScriptlet>
+            <scriptFile>src/main/scripts/postinstall</scriptFile>
+            <fileEncoding>utf-8</fileEncoding>
+          </postinstallScriptlet>
+          <preremoveScriptlet>
+            <scriptFile>src/main/scripts/preremove</scriptFile>
+            <fileEncoding>utf-8</fileEncoding>
+          </preremoveScriptlet>
+          <provides>
+            <provide>sampleAppConfig${project.version}</provide>
+          </provides>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

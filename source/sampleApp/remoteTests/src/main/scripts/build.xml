@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<project default="clean-run">
+	<target name="init">
+		<propertyfile file="../classes/config.properties">
+			<entry  key="application.host" value="localhost"/>
+			<entry  key="application.port" value="9999"/>
+			<entry  key="application.name" value="sample"/>
+		</propertyfile>
+	</target>
+	<target name="run-integration-tests" depends="init">
+		<path id="class.path">
+			<pathelement location="../classes"/>
+			<fileset dir="../lib">
+				<include name="**/*.jar"/>
+			</fileset>
+		</path>
+		<junit printsummary="yes" haltonfailure="yes">
+			<formatter type="plain"/>
+			<classpath>
+				<path refid="class.path"/>
+			</classpath>
+			<test name="com.dtolabs.sample.bo.ws.IntegrationTestPersonBOWs">
+				<formatter type="xml"/>
+			</test>
+			<test name="com.dtolabs.sample.bo.ws.IntegrationTestPersonBORs">
+				<formatter type="xml"/>
+			</test>
+		</junit>
+	</target>
+	<target name="clean">
+		<delete>
+			<fileset dir="." includes="TEST-*.xml"/>
+			<fileset dir="." includes="TEST-*.txt"/>
+		</delete>
+	</target>
+	<target name="clean-run" depends="clean,run-integration-tests"/>
+</project>
